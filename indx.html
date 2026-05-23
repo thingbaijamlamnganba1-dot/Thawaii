@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0b16 0%, #3a0d25 100%);
+            color: white;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container for the screens */
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Screen States */
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+
+        .active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        /* First Screen Styling */
+        #intro-screen h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        #intro-screen p {
+            font-size: 1.2rem;
+            color: #ff99bc;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        /* Button Styling */
+        .btn {
+            background: rgba(255, 77, 109, 0.2);
+            border: 2px solid #ff4d6d;
+            color: #ff4d6d;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.3);
+            margin-top: 20px;
+            font-family: inherit;
+        }
+
+        .btn:hover, .btn:active {
+            background: #ff4d6d;
+            color: white;
+            box-shadow: 0 0 25px rgba(255, 77, 109, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Glass Card Styling (Used on Page 2 and 3) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .glass-card h1 {
+            color: #ff4d6d;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .glass-card p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+        }
+
+        .glass-card p:last-child {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: #ff99bc;
+        }
+
+        /* Page 3: Polaroid Photo Frame */
+        .polaroid-frame {
+            width: 240px;
+            height: 290px;
+            background: white;
+            padding: 12px 12px 45px 12px;
+            margin: 0 auto 25px auto;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .polaroid-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .polaroid-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: #ddd; /* Fallback color before image loads */
+        }
+
+        /* Floating Hearts Background Animation */
+        #heart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -10vh;
+            font-size: 1.5rem;
+            color: rgba(255, 77, 109, 0.6);
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background for animated hearts -->
+    <div id="heart-container"></div>
+
+    <!-- Screen 1: The Teaser -->
+    <div id="intro-screen" class="screen active">
+        <h1>Thawai...</h1>
+        <p>Ngbu ei thadoktuna chtlage khallabo🫠.</p>
+        <button class="btn" id="reveal-btn">Click Me ❤️</button>
+    </div>
+
+    <!-- Screen 2: The Birthday Wish -->
+    <div id="wish-screen" class="screen hidden">
+        <div class="glass-card">
+            <h1>Ngna chtkhraba matung oihwgadaba eigi punsido ng yengba ngmladra.💖</h1>
+            
+            <p>Nggi khonjel tadaba numitta eina kayagi matik wajaba.</p>
+            
+            <p>Eina ngbu nungcjabagi matik eibu thwsabidriba karigino😔.</p>
+            
+            <p>Ei ngga kynaba ngmmoiye Thawai😥</p>
+        </p>Ng eibu nungcdrabo </p>
+            
+            <!-- Button to go to the third page -->
+            <button class="btn" id="next-btn">Thawai💖 ➔</button>
+        </div>
+    </div>
+
+    <!-- Screen 3: The Final Reveal -->
+    <div id="final-screen" class="screen hidden">
+        <div class="glass-card">
+            <!-- Add your own photo URL in the src attribute below -->
+            <div class="polaroid-frame">
+                <img src="shilpa.jpg" alt="Us">
+            </div>
+            
+            <h1>I love you so much 
+uuuuummmuuuuuuaaaaaaaahhhhhhhh😘😘😘😘😘😘💏💏
+            </h1>
+            <p style="color: #f0f0f0;"></p>
+        </div>
+    </div>
+
+    <script>
+        const revealBtn = document.getElementById('reveal-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        const introScreen = document.getElementById('intro-screen');
+        const wishScreen = document.getElementById('wish-screen');
+        const finalScreen = document.getElementById('final-screen');
+        const heartContainer = document.getElementById('heart-container');
+
+        // Function to create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            const heartSymbols = ['❤️', '💖', '✨', '💕'];
+            heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 1.5 + 1 + 'rem';
+            
+            heartContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        // Screen 1 to Screen 2 transition
+        revealBtn.addEventListener('click', () => {
+            introScreen.classList.remove('active');
+            introScreen.classList.add('hidden');
+
+            setTimeout(() => {
+                wishScreen.classList.remove('hidden');
+                wishScreen.classList.add('active');
+                
+                setInterval(createHeart, 300);
+                for(let i=0; i<5; i++) createHeart();
+            }, 1000); 
+        });
+
+        // Screen 2 to Screen 3 transition
+        nextBtn.addEventListener('click', () => {
+            wishScreen.classList.remove('active');
+            wishScreen.classList.add('hidden');
+
+            setTimeout(() => {
+                finalScreen.classList.remove('hidden');
+                finalScreen.classList.add('active');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
